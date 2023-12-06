@@ -23,6 +23,10 @@ export default defineConfig({
           find: "@pages",
           replacement: resolve(projectRootDir, "src/pages"),
         },
+        {
+          find: "@api",
+          replacement: resolve(projectRootDir, "src/api"),
+        },
       ],
     }),
   ],

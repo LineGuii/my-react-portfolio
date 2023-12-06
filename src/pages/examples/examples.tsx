@@ -1,3 +1,8 @@
+import { Box } from "@ui";
+import { RestFormIntegration } from "./components/rest-form-integration";
+
 export function Examples() {
-    return <></>
+  return <Box>
+    <RestFormIntegration />
+  </Box>;
 }

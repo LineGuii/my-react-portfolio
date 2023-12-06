@@ -22,6 +22,8 @@
 
     "baseUrl": ".",
     "paths": {
+      "@api": ["./src/api"],
+      "@api/*": ["./src/api/*"],
       "@ui": ["./src/components/ui"],
       "@ui/*": ["./src/components/ui/*"],
       "@components": ["./src/components"],

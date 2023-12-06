@@ -9,8 +9,9 @@ export function Menu() {
         <MenuTitle>Meu Portfólio</MenuTitle>
       </Flex>
       <MenuLinks>
-        <MenuButton href="#">Home</MenuButton>
+        <MenuButton href="/">Home</MenuButton>
         <MenuButton href="#">Experiência</MenuButton>
+        <MenuButton href="/examples">Exemplos</MenuButton>
         <MenuButton href="#">Sobre Mim</MenuButton>
         <MenuButton href="#">Contato</MenuButton>
       </MenuLinks>
