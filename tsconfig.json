@@ -22,8 +22,10 @@
 
     "baseUrl": ".",
     "paths": {
-      "@ui/*": ["./components/ui/*"],
-      "@components/*": ["./components/*"],
+      "@ui": ["./src/components/ui"],
+      "@ui/*": ["./src/components/ui/*"],
+      "@components": ["./src/components"],
+      "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
     }
   },

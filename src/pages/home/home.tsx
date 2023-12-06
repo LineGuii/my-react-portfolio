@@ -1,9 +1,6 @@
-import { Box } from "@ui/box";
 import { Menu } from "@components/menu/";
-import { Flex } from "@components";
-import { Title } from "@ui/title/title";
 import { styled } from "@stitches/react";
-import { SubTitle } from "@components/ui/subtitle";
+import { SubTitle, Title, Box, Flex } from "@ui";
 
 export function Home() {
   return (
@@ -12,7 +9,7 @@ export function Home() {
       <HomeBox>
         <StyledFlex>
           <img
-            src="./public/logo512.png"
+            src="/logo512.png"
             height={128}
             about="face"
             alt="face"

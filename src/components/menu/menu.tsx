@@ -1,6 +1,6 @@
 import { styled } from "@stitches/react";
-import { Flex } from "..";
 import { MenuButton, MenuTitle } from "./components";
+import { Flex } from "../ui";
 
 export function Menu() {
   return (
