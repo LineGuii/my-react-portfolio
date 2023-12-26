@@ -1,32 +1,60 @@
 import { Box, Flex, MainBox, SubTitle, Title } from "@ui";
 import { PokemonApi } from "@api";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { PokemonTypeChip } from "@ui/chip";
 
 export function RestFormIntegration() {
   const [color, setColor] = useState("");
   const [pokemonName, setPokemonName] = useState("");
   const [pokemon, setPokemon] = useState<any>();
   const [error, setError] = useState<string>();
+
   const { data: colors } = PokemonApi.useGetAllPokemonColor();
   const { data: pokemonByColor } = PokemonApi.useGetPokemonByColor(color);
   const { mutate: getPokemon } = PokemonApi.useGetPokemon();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (pokemonName)
-      getPokemon(pokemonName.trim().toLowerCase(), {
-        onSuccess: (data) => {
-          setPokemon(data);
-        },
-        onError: (_) => {
-          setError("Esse pokemon não existe");
-        },
-      });
-  };
+  const pokemonShowable = useMemo(() => {
+    if (pokemon != null) {
+      console.log(
+        pokemon.types.map((t: { type: { name: any } }) => t.type.name)
+      );
+      return {
+        pokemonName: pokemon.name,
+        pokemonType: [
+          ...pokemon.types.map((t: { type: { name: any } }) => t.type.name),
+        ],
+        sprite: pokemon.sprites.front_default,
+      };
+    } else {
+      return null;
+    }
+  }, [pokemon]);
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      if (pokemonName)
+        getPokemon(pokemonName.trim().toLowerCase(), {
+          onSuccess: (data) => {
+            setPokemon(data);
+          },
+          onError: (_) => {
+            setError("Esse pokemon não existe");
+          },
+        });
+    },
+    [getPokemon, pokemonName]
+  );
 
   return (
     <>
-      <MainBox>
+      <Box
+        style={{
+          border: "1px solid black",
+          borderRadius: "8px",
+          padding: "8px",
+        }}
+      >
         <Title>Integração RestAPI em formulário</Title>
         <p>
           Esse exemplo consiste em integrar uma API REST num formulário. Tanto
@@ -37,7 +65,7 @@ export function RestFormIntegration() {
           .
         </p>
 
-        <Box style={{ border: "1px solid black", borderRadius: '8px', padding: "8px" }}>
+        <Box>
           <form onSubmit={handleSubmit}>
             <Flex style={{ gap: "8px" }}>
               <input
@@ -101,10 +129,24 @@ export function RestFormIntegration() {
                 {JSON.stringify(pokemon, null, 2)}
               </pre>
             )}
+            {pokemonShowable && (
+              <Box style={{ padding: "0", alignItems: "center" }}>
+                <p>{pokemonShowable.pokemonName}</p>
+                <img
+                  src={pokemonShowable.sprite}
+                  alt={pokemonShowable.pokemonName}
+                />
+                <Flex>
+                  {pokemonShowable.pokemonType.map((t) => {
+                    return <PokemonTypeChip type={t}>{t}</PokemonTypeChip>;
+                  })}
+                </Flex>
+              </Box>
+            )}
             {error && <span>{error}</span>}
           </Flex>
         </Box>
-      </MainBox>
+      </Box>
     </>
   );
 }
